@@ -4,7 +4,15 @@ import Header from './components/Header';
 import Rules from './components/Rules';
 import Scores from './components/Scores';
 import Images from './components/Images';
-import imageArray from './images.json';
+import prodImages from './images.json';
+import devImages from './imagesDEV.json';
+var imageArray = [];
+
+if (process.env.NODE_ENV === 'production') {
+  imageArray = prodImages;
+} else {
+  imageArray = devImages;
+}
 
 class App extends React.Component {
   state = {
