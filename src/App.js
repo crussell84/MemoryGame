@@ -10,7 +10,8 @@ class App extends React.Component {
   state = {
     highScore: 0,
     currentScore: 0,
-    clicked: []
+    clicked: [],
+    msg: ""
   }
 
 componentDidMount() {
@@ -31,14 +32,14 @@ componentDidMount() {
 
   handleWrongGuess = (id) => {
     this.shuffleImages(imageArray);
-    this.setState({ clicked: [], currentScore: 0 });
+    this.setState({ clicked: [], currentScore: 0, msg: <span className='red-text text-darken-4'>Incorrect Guess!</span> });
   }
 
   handleGoodGuess = (id, arr) => {
     this.shuffleImages(imageArray);
     arr.push(id);
     const score = this.state.currentScore + 1;
-    this.setState({clicked: arr, currentScore: score});
+    this.setState({clicked: arr, currentScore: score, msg: <span className='green-text text-darken-4'>Good Guess!</span>});
   }
 
   shuffleImages = images => {
@@ -59,7 +60,7 @@ componentDidMount() {
       <div className="App">
         <Header />
         <Rules />
-        <Scores current={this.state.currentScore} high={this.state.highScore}/>
+        <Scores msg={this.state.msg} current={this.state.currentScore} high={this.state.highScore}/>
         <Images onClick={this.handleImageClick} />
       </div>
     );
