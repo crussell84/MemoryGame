@@ -11,12 +11,13 @@ class App extends React.Component {
     highScore: 0,
     currentScore: 0,
     clicked: [],
-    msg: ""
+    msg: "",
+    images: imageArray
   }
 
   componentDidMount() {
     this.shuffleImages(imageArray);
-    this.forceUpdate();
+    this.setState({images: imageArray});
   }
 
   handleImageClick = (id) => {
@@ -31,8 +32,8 @@ class App extends React.Component {
   }
 
   handleWrongGuess = (id) => {
-    this.shuffleImages(imageArray);
-    this.setState({ clicked: [], currentScore: 0, msg: <span className='red-text text-darken-4'>Incorrect Guess!</span> });
+    let shuffled = this.shuffleImages(imageArray);
+    this.setState({ clicked: [], currentScore: 0, msg: <span className='red-text text-darken-4'>Incorrect Guess!</span>, images: shuffled });
   }
 
   handleGoodGuess = (id, arr) => {
@@ -41,10 +42,9 @@ class App extends React.Component {
     if (score > high) {
       high = score;
     }
-    this.shuffleImages(imageArray);
+    let shuffled = this.shuffleImages(imageArray);
     arr.push(id);
-
-    this.setState({ clicked: arr, highScore: high, currentScore: score, msg: <span className='green-text text-darken-4'>Good Guess!</span> });
+    this.setState({ clicked: arr, highScore: high, currentScore: score, msg: <span className='green-text text-darken-4'>Good Guess!</span>, images: shuffled });
   }
 
   shuffleImages = images => {
@@ -64,9 +64,13 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
-        <Rules />
-        <Scores msg={this.state.msg} current={this.state.currentScore} high={this.state.highScore} />
-        <Images onClick={this.handleImageClick} />
+        <div className="container blue-grey lighten-3 section">
+          <div className="row">
+            <Rules />
+            <Scores msg={this.state.msg} current={this.state.currentScore} high={this.state.highScore} />
+          </div>
+          <Images images={this.state.images} onClick={this.handleImageClick} />
+        </div>
       </div>
     );
   }

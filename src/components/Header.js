@@ -2,9 +2,7 @@ import React from 'react';
 
 const Header = (props) => {
     return(
-        <div className="container">
-        <h1>Memory Games</h1>
-        </div>
+        <h1 className="cyan-text text-lighten-5">Memory Games</h1>  
     )
 }
 
