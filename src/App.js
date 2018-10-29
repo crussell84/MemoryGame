@@ -14,10 +14,10 @@ class App extends React.Component {
     msg: ""
   }
 
-componentDidMount() {
-  this.shuffleImages(imageArray);
-  this.forceUpdate();
-}
+  componentDidMount() {
+    this.shuffleImages(imageArray);
+    this.forceUpdate();
+  }
 
   handleImageClick = (id) => {
     const clickedId = id;
@@ -36,10 +36,15 @@ componentDidMount() {
   }
 
   handleGoodGuess = (id, arr) => {
+    const score = this.state.currentScore + 1;
+    let high = this.state.highScore;
+    if (score > high) {
+      high = score;
+    }
     this.shuffleImages(imageArray);
     arr.push(id);
-    const score = this.state.currentScore + 1;
-    this.setState({clicked: arr, currentScore: score, msg: <span className='green-text text-darken-4'>Good Guess!</span>});
+
+    this.setState({ clicked: arr, highScore: high, currentScore: score, msg: <span className='green-text text-darken-4'>Good Guess!</span> });
   }
 
   shuffleImages = images => {
@@ -60,7 +65,7 @@ componentDidMount() {
       <div className="App">
         <Header />
         <Rules />
-        <Scores msg={this.state.msg} current={this.state.currentScore} high={this.state.highScore}/>
+        <Scores msg={this.state.msg} current={this.state.currentScore} high={this.state.highScore} />
         <Images onClick={this.handleImageClick} />
       </div>
     );
