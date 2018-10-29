@@ -6,13 +6,21 @@ import Scores from './components/Scores';
 import Images from './components/Images';
 
 class App extends React.Component {
+  state = {
+    clicked: false
+  }
+
+handleImageClick = (event) => {
+  console.log(event);
+}
+
   render() {
     return (
       <div className="App">
         <Header />
         <Rules />
         <Scores />
-        <Images />
+        <Images onClick={this.handleImageClick}/>
       </div>
     );
   }

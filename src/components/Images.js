@@ -1,9 +1,12 @@
 import React from 'react';
+import imageArray from '../images.json';
 
 const Images = (props) => {
-    return(
+    return (
         <div className="container">
-        <p> Pretty pictures here!</p>
+            <div className="row">
+                {imageArray.map((image, index) => <div className="col s3" key={index}><img src={image.src} key={image.id} onClick={props.onClick}/></div>)};
+            </div>
         </div>
     )
 }
