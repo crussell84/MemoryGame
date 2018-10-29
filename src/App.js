@@ -11,13 +11,12 @@ class App extends React.Component {
     highScore: 0,
     currentScore: 0,
     clicked: [],
-    msg: "",
+    msg: <span className='purple-text text-darken-4'>Start Clicking!</span>,
     images: imageArray
   }
 
   componentDidMount() {
-    this.shuffleImages(imageArray);
-    this.setState({images: imageArray});
+    this.setState({ images: this.shuffleImages(imageArray) });
   }
 
   handleImageClick = (id) => {
@@ -32,8 +31,12 @@ class App extends React.Component {
   }
 
   handleWrongGuess = (id) => {
-    let shuffled = this.shuffleImages(imageArray);
-    this.setState({ clicked: [], currentScore: 0, msg: <span className='red-text text-darken-4'>Incorrect Guess!</span>, images: shuffled });
+    this.setState({
+      clicked: [],
+      currentScore: 0,
+      msg: <span className='red-text text-darken-4'>Incorrect Guess!</span>,
+      images: this.shuffleImages(imageArray)
+    });
   }
 
   handleGoodGuess = (id, arr) => {
@@ -42,9 +45,14 @@ class App extends React.Component {
     if (score > high) {
       high = score;
     }
-    let shuffled = this.shuffleImages(imageArray);
     arr.push(id);
-    this.setState({ clicked: arr, highScore: high, currentScore: score, msg: <span className='green-text text-darken-4'>Good Guess!</span>, images: shuffled });
+    this.setState({
+      clicked: arr,
+      highScore: high,
+      currentScore: score,
+      msg: <span className='green-text text-darken-4'>Good Guess!</span>,
+      images: this.shuffleImages(imageArray)
+    });
   }
 
   shuffleImages = images => {
